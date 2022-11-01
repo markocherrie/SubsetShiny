@@ -12,6 +12,12 @@ file_data <- reactive({
     read.csv(input$file1$datapath, header = TRUE, sep = ",")
   })
 
+file_name <- reactive({
+  req(input$file1)
+  fn<-(input$file1$datapath)
+  return(fn)
+})
+
 startdatetime<-reactive({
   sd<-as.POSIXct(paste0(input$startdate," ", input$starttime))
   sd
@@ -43,17 +49,18 @@ dfsub
 })
 
 # Render the table
-output$contents<-renderTable({
+output$contents<-renderDataTable({
   subdata()
 })
  
 # Download function
 output$downloadData <- downloadHandler(
+  
   filename = function() {
-    paste("EPHORdata-", Sys.Date(), ".csv", sep="", row.names=F)
+    paste(gsub(".csv", "", input$file1$name), ".csv", sep="")
   },
   content = function(file) {
-    write.csv(subdata(), file)
+    write.csv(subdata(), file, row.names=F)
   }
 )
 

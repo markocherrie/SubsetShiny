@@ -27,5 +27,5 @@ shinyUI(pageWithSidebar(
   
   # What will be shown in main panel
   mainPanel(
-    tableOutput("contents"))
+    DT::dataTableOutput("contents"))
 ))
