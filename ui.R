@@ -4,7 +4,7 @@ library(DT)
 
 shinyUI(pageWithSidebar(
   # Title
-  headerPanel("Subset your EPHOR data"),
+  headerPanel("Subset your data"),
   # User input
   sidebarPanel(
     fileInput("file1", "Upload Data",
