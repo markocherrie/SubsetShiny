@@ -1,3 +1,4 @@
+# Load packages
 library(shiny)
 library(shinyTime)
 library(DT)
@@ -24,7 +25,7 @@ shinyUI(pageWithSidebar(
     
   ),
   
+  # What will be shown in main panel
   mainPanel(
-
     tableOutput("contents"))
 ))

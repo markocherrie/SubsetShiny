@@ -1,5 +1,5 @@
+# Load packages
 library(shiny)
-library(plyr)
 library(lubridate)
 library(dplyr)
 
@@ -24,15 +24,15 @@ enddatetime<-reactive({
 
 subdata<-reactive({
 
-# file data
+# Reactive file data
 req(file_data())
 df <- file_data()
 
-# start datetime
+# Reactive start datetime
 req(startdatetime())
 startdatetime<-startdatetime()
 
-# end datetime
+# Reactive end datetime
 req(enddatetime())
 enddatetime<-enddatetime()
 
@@ -42,11 +42,12 @@ dfsub <- subset(df, timestamp > startdatetime && timestamp < enddatetime)
 dfsub
 })
 
+# Render the table
 output$contents<-renderTable({
   subdata()
 })
  
-
+# Download function
 output$downloadData <- downloadHandler(
   filename = function() {
     paste("EPHORdata-", Sys.Date(), ".csv", sep="", row.names=F)

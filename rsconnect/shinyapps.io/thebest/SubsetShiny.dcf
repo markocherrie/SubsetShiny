@@ -1,0 +1,12 @@
+name: SubsetShiny
+title: SubsetShiny
+username:
+account: thebest
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 7489157
+bundleId: 6464313
+url: https://thebest.shinyapps.io/SubsetShiny/
+when: 1667328783.21827
+asMultiple: FALSE
+asStatic: FALSE
