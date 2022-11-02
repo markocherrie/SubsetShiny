@@ -8,6 +8,7 @@ shinyUI(pageWithSidebar(
   headerPanel("Subset your data"),
   # User input
   sidebarPanel(
+    helpText("Your CSV needs to have a 'timestamp' column then select the start and end date times that you want your data to be filtered to"),
     fileInput("file1", "Upload Data",
               accept = c(
                 "text/csv",
