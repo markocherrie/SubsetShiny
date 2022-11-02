@@ -19,12 +19,13 @@ file_name <- reactive({
 })
 
 startdatetime<-reactive({
-  sd<-as.POSIXct(paste0(input$startdate," ", input$starttime))
-  sd
+  sd<-paste0(input$startdate," ", strftime(input$starttime, format="%H:%M:%S"))
+  return(sd)
 })
-
+##### This bit is the problem!! - not recongising the hms
+#####
 enddatetime<-reactive({
-  ed<-as.POSIXct(paste0(input$enddate," ", input$endtime))
+  ed<-paste0(input$enddate," ", strftime(input$endtime, format="%H:%M:%S"))
   ed
 })
 
@@ -36,15 +37,17 @@ df <- file_data()
 
 # Reactive start datetime
 req(startdatetime())
-startdatetime<-startdatetime()
+startdatetime2<-startdatetime()
 
 # Reactive end datetime
 req(enddatetime())
-enddatetime<-enddatetime()
+enddatetime2<-enddatetime()
 
+#https://stackoverflow.com/questions/43880823/subset-dataframe-based-on-posixct-date-and-time-greater-than-datetime-using-dply
 
 # subset
-dfsub <- subset(df, timestamp > startdatetime && timestamp < enddatetime)
+
+dfsub <- df %>% dplyr::filter(timestamp >= startdatetime2 & timestamp <= enddatetime2)
 dfsub
 })
 
@@ -53,6 +56,7 @@ output$contents<-renderDataTable({
   subdata()
 })
  
+
 # Download function
 output$downloadData <- downloadHandler(
   
