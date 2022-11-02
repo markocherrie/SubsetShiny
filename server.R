@@ -2,6 +2,8 @@
 library(shiny)
 library(lubridate)
 library(dplyr)
+library(ggplot2)
+library(tidyr)
 
 # server
 shinyServer(function(input,output){
@@ -68,5 +70,21 @@ output$downloadData <- downloadHandler(
   }
 )
 
+
+output$ggplott <- renderPlot(
+
+  subdata() %>%
+    tidyr::pivot_longer(cols = temperature:sound)%>%
+    filter(name %in% c('temperature','humidity','pressure','UVB','light','sound','PM2.5')) %>%
+    ggplot(aes(x=timestamp,y=value)) +
+    geom_point() +
+    facet_grid(name ~.,scales = 'free_y') +
+    theme(strip.text.y = element_text(angle = 0),
+          axis.text.x = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank()) +
+      labs(y=NULL,x=NULL)
+ 
+)
 
 })

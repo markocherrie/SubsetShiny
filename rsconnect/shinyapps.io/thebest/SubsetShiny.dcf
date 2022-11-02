@@ -5,8 +5,8 @@ account: thebest
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 7489157
-bundleId: 6466650
+bundleId: 6466950
 url: https://thebest.shinyapps.io/SubsetShiny/
-when: 1667381276.65255
+when: 1667386853.76133
 asMultiple: FALSE
 asStatic: FALSE

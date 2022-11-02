@@ -29,6 +29,7 @@ shinyUI(pageWithSidebar(
   # What will be shown in main panel
   mainPanel(
     tabsetPanel(type = "tabs",
-    tabPanel("Data", DT::DTOutput("contents"))
+    tabPanel("Data", DT::DTOutput("contents")),
+    tabPanel("Plot", plotOutput("ggplott"))
     ))
 ))
