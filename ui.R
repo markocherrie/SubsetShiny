@@ -13,7 +13,7 @@ shinyUI(pageWithSidebar(
               accept = c(
                 "text/csv",
                 "text/comma-separated-values,text/plain",
-                ".csv")),
+                ".csv")), 
     dateInput("startdate", "Start Date:", format = "yyyy-mm-dd"),
     #Format is 00:00:00
     timeInput("starttime", "Start Time:"),
@@ -28,6 +28,7 @@ shinyUI(pageWithSidebar(
   
   # What will be shown in main panel
   mainPanel(
-    DT::DTOutput("contents")
-    )
+    tabsetPanel(type = "tabs",
+    tabPanel("Data", DT::DTOutput("contents"))
+    ))
 ))

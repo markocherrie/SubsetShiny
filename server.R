@@ -61,7 +61,7 @@ output$contents<-renderDataTable({
 output$downloadData <- downloadHandler(
   
   filename = function() {
-    paste(gsub(".csv", "", input$file1$name), ".csv", sep="")
+    paste(gsub(".csv", "", input$file1$name), "_subset.csv", sep="")
   },
   content = function(file) {
     write.csv(subdata(), file, row.names=F)
