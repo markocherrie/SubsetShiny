@@ -9,19 +9,19 @@ library(readxl)
 # server
 shinyServer(function(input,output){
   
-  
+# fetch the uploaded raw data
 file1_data <- reactive({
     req(input$file1)
     read.csv(input$file1$datapath, header = TRUE, sep = ",")
   })
 
-
+# fetch the uploaded meta data
 file2_data <- reactive({
   req(input$file2)
   read_excel(input$file2$datapath)
 })
 
-
+# reactive meta data
 metadatasubset<-reactive({
   
   # Meta data
@@ -39,10 +39,10 @@ metadatasubset<-reactive({
   
 })
 
+# reactive raw data
 rawdatasubset<-reactive({
-    
-    
-    # Raw data
+  
+    # get the raw data
     req(file1_data())
     rawdata <- file1_data()
   
