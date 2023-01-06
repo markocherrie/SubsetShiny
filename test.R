@@ -25,6 +25,9 @@ test<-read_excel("testdata/List_A_v2.1_AU20220103.xlsx")
 
 
 test2<-"EP6_20_110_sen.csv"
+
+sub('.*\\_', '', test2)
+
 test2<-gsub("_sen", "", test2)
 test2<-gsub(".csv", "", test2)
 

@@ -2,17 +2,14 @@
 library(shiny)
 library(shinyTime)
 library(DT)
+library(shinycssloaders)
 
 shinyUI(pageWithSidebar(
   # Title
-  headerPanel("Processing Low Cost Sensor data"),
+  headerPanel("Low Cost Sensor Data Processing"),
   # User input
   sidebarPanel(
     helpText(""),
-    selectInput("Data type", "Source of Data:",
-                c("EPHOR Sensorbox" = "SB",
-                  "Axivity" = "A",
-                  "Polar" = "P")),
     fileInput("file2", "Upload Meta Data (list A)"), 
     fileInput("file1", "Upload Raw Data",
               accept = c(
@@ -33,8 +30,8 @@ shinyUI(pageWithSidebar(
   # What will be shown in main panel
   mainPanel(
     tabsetPanel(type = "tabs",
-                tabPanel("MetaData", DT::DTOutput("meta")),
-                tabPanel("Data", DT::DTOutput("raw")),
-                tabPanel("Plot", plotOutput("rawplot"))
+                tabPanel("Meta Data", DT::DTOutput("meta")),
+                tabPanel("Raw Data", DT::DTOutput("raw")),
+                tabPanel("Raw Data Plot", withSpinner(plotOutput("rawplot", height=750)))
     ))
 ))
