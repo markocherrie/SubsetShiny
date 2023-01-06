@@ -62,25 +62,9 @@ rawdatasubset<-reactive({
     metadatasubset()
   })
   
-# Download function
-output$downloadData <- downloadHandler(
-    
-    filename = function() {
-      paste(gsub(".csv", "", input$file1$name), "_subset.csv", sep="")
-    },
-    content = function(file) {
-      write.csv(subdata(), file, row.names=F)
-    }
-  )
   
-  #breakpoint<-reactive({
-  #x<-subdata() %>%
-  #  mutate(timestamp=as.POSIXct(timestamp))
-  #xy<-lubridate::day(max(x$timestamp)-min(x$timestamp))>=7
-  #xy
-  #})
-  
-  output$rawplot <- renderPlot(
+# Render raw plot
+output$rawplot <- renderPlot(
     
     
     rawdatasubset() %>%
@@ -95,5 +79,16 @@ output$downloadData <- downloadHandler(
       scale_x_datetime(breaks = '12 hour', date_labels = '%d/%m %H:%M')
     
   )
+
+# Render downloaded data
+output$downloadData <- downloadHandler(
+  
+  filename = function() {
+    paste(gsub(".csv", "", input$file1$name), "_subset.csv", sep="")
+  },
+  content = function(file) {
+    write.csv(rawdatasubset(), file, row.names=F)
+  }
+)
   
 })
