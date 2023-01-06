@@ -22,53 +22,44 @@ file2_data <- reactive({
 })
 
 
-metasub<-reactive({
+metadatasubset<-reactive({
   
-  # meta data here
+  # Meta data
   req(file2_data())
-  df2 <- file2_data()
+  metadata <- file2_data()
   
-  # Reactive file data
+  # File name
   req(file1_data())
-  test2<-input$file1$name
-  test2<-gsub("_sen", "", test2)
-  test2<-gsub(".csv", "", test2)
+  nameoffile<-gsub("_sen", "", input$file1$name)
+  nameoffile<-gsub(".csv", "", nameoffile)
   
-  # subset
-  test<-subset(df2, participantID==as.character(test2))
-  test
+  # Subset meta data based on file name
+  metadatasubset<-subset(metadata, participantID==as.character(nameoffile))
+  metadatasubset
   
 })
 
-subdata<-reactive({
+rawdatasubset<-reactive({
     
     
-    # Reactive file data
+    # Raw data
     req(file1_data())
-    df <- file1_data()
-    
-    # Reactive start datetime
-    startdatetime2<-metasub()$startMeasurement
-    enddatetime2<-metasub()$stopMeasurement
-    
-    #https://stackoverflow.com/questions/43880823/subset-dataframe-based-on-posixct-date-and-time-greater-than-datetime-using-dply
-    # Reactive start datetime
-    startdatetime2<-as.POSIXct(startdatetime2, format="%d-%m-%Y %H:%M", tz="CET")
-    enddatetime2<-as.POSIXct(enddatetime2, format="%d-%m-%Y %H:%M", tz="CET")
-    # subset
-    
-    dfsub <- df %>% dplyr::filter(timestamp >= startdatetime2 & timestamp <= enddatetime2)
-    dfsub
+    rawdata <- file1_data()
+  
+    # filter the data
+    rawdatasubset <- rawdata %>% dplyr::filter(timestamp >= as.POSIXct(metadatasubset()$startMeasurement, format="%d-%m-%Y %H:%M", tz="CET") & 
+                                    timestamp <= as.POSIXct(metadatasubset()$stopMeasurement, format="%d-%m-%Y %H:%M", tz="CET"))
+    rawdatasubset
   })
   
-  # Render the table
-  output$contents<-renderDataTable({
-    subdata()
+  # Render the raw data table
+  output$raw<-renderDataTable({
+    rawdatasubset()
   })
   
-  
+  # render the meta data table
   output$meta<-renderDataTable({
-    metasub()
+    metadatasubset()
   })
   
 # Download function
@@ -89,10 +80,10 @@ output$downloadData <- downloadHandler(
   #xy
   #})
   
-  output$ggplott <- renderPlot(
+  output$rawplot <- renderPlot(
     
     
-    subdata() %>%
+    rawdatasubset() %>%
       tidyr::pivot_longer(cols = temperature:sound)%>%
       filter(name %in% c('temperature','humidity','pressure','UVB','light','sound','PM2.5')) %>%
       mutate(timestamp=as.POSIXct(timestamp)) %>%

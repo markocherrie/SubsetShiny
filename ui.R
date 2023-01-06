@@ -34,7 +34,7 @@ shinyUI(pageWithSidebar(
   mainPanel(
     tabsetPanel(type = "tabs",
                 tabPanel("MetaData", DT::DTOutput("meta")),
-                tabPanel("Data", DT::DTOutput("contents")),
-                tabPanel("Plot", plotOutput("ggplott"))
+                tabPanel("Data", DT::DTOutput("raw")),
+                tabPanel("Plot", plotOutput("rawplot"))
     ))
 ))
