@@ -6,7 +6,7 @@ d<-as.POSIXct(paste0("2016-07-01"," ", "01:00:00"), tz="UTC")
 
 
 date_test %>% 
-  filter(datetime > d)
+  filter(datetime > d) 
 
 
 # my data
@@ -43,5 +43,14 @@ enddatetime2<-as.POSIXct(test$stopMeasurement, format="%d-%m-%Y %H:%M", tz="CET"
 
 dfsub <- df %>% dplyr::filter(timestamp >= startdatetime2 & timestamp <= enddatetime2)
 dfsub
+
+
+df<-read.csv("testdata/EP6_20_110_pol.csv")
+
+df$dd.MM.yyyy
+df$timestamp<-paste0(df$dd.MM.yyyy," ", substr(df$HH.mm.ss.SSSS,1,8))
+ 
+ 
+
 
 
