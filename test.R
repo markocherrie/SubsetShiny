@@ -6,7 +6,7 @@ d<-as.POSIXct(paste0("2016-07-01"," ", "01:00:00"), tz="UTC")
 
 
 date_test %>% 
-  filter(datetime > d)
+  filter(datetime > d) 
 
 
 # my data
