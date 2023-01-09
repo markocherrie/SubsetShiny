@@ -45,3 +45,11 @@ dfsub <- df %>% dplyr::filter(timestamp >= startdatetime2 & timestamp <= enddate
 dfsub
 
 
+df<-read.csv("testdata/EP6_20_110_pol.csv")
+
+df$dd.MM.yyyy
+df$timestamp<-paste0(df$dd.MM.yyyy," ", substr(df$HH.mm.ss.SSSS,1,8))
+
+
+
+
