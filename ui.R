@@ -10,7 +10,7 @@ shinyUI(pageWithSidebar(
   # User input
   sidebarPanel(
     helpText(""),
-    fileInput("file2", "Upload Meta Data (list A)"), 
+    fileInput("file2", "Upload Measurement Data (list A)"), 
     fileInput("file1", "Upload Raw Data",
               accept = c(
                 "text/csv",
@@ -30,7 +30,7 @@ shinyUI(pageWithSidebar(
   # What will be shown in main panel
   mainPanel(
     tabsetPanel(type = "tabs",
-                tabPanel("Meta Data", DT::DTOutput("meta")),
+                tabPanel("Measurement Data", DT::DTOutput("meta")),
                 tabPanel("Raw Data", DT::DTOutput("raw")),
                 tabPanel("Raw Data Plot", withSpinner(plotOutput("rawplot", height=750)))
     ))
