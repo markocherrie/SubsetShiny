@@ -33,7 +33,7 @@ shinyServer(function(input,output){
   metadatasubset<-reactive({
     req(file1_data())
     
-    if(grepl("^EP[[:digit:]]_[[:digit:]][[:digit:]]_[[:digit:]][[:digit:]][[:digit:]]_", input$file1$name, ignore.case = FALSE)==T){
+    if(grepl("^EP[0-9]+_[0-9]+_[0-9]+_", input$file1$name, ignore.case = FALSE)==T){
       # Meta data
       req(file2_data())
       metadata <- file2_data()
@@ -68,7 +68,7 @@ shinyServer(function(input,output){
   rawdatasubset<-reactive({
     req(file1_data())
     
-    if(grepl("^EP[[:digit:]]_[[:digit:]][[:digit:]]_[[:digit:]][[:digit:]][[:digit:]]_", input$file1$name, ignore.case = FALSE)==T){
+    if(grepl("^EP[0-9]+_[0-9]+_[0-9]+_", input$file1$name, ignore.case = FALSE)==T){
       
       # get the raw data
       
